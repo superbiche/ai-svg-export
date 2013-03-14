@@ -13,6 +13,7 @@ __If not, then you'll have to fix it first (manually)__.
 *Any script automating this task would be appreciated !*  
 If you are likely to create a file from scratch then export its elements, then keep in mind building a single layer for every single element. Merging every element in the layer might help. 
 
+
 Instructions of use
 -------------------
 1. Open your file
