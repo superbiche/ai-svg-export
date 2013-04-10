@@ -1,8 +1,4 @@
-﻿// Modified Batch Export Unlocked Layers by Michel Tomas
-// Simple addition to the Batch Export script descripted below allowing to export files in SVG format
-// Contributors welcome
-
-/////////////////////////////////////////////////////////////////
+﻿/////////////////////////////////////////////////////////////////
 // Batch Export Unlocked Layers v2 -- CS5
 //>=--------------------------------------
 //	This script will generate a separate raster image for every UNLOCKED layer in your .ai file.  
@@ -27,7 +23,6 @@
 //copyright full text here:  http://www.wundes.com/js4ai/copyright.txt
 ////////////////////////////////////////////////////////////////// 
 
-
 #target illustrator
 try{
 #targetengine estoolkit
@@ -35,147 +30,47 @@ try{
 {
     //don't care...    
 }
-/***********************************************************************************/
-/****** adding Nochka script to export each layer's items into separate layers ******/
-/* http://www.adobe.com/cfusion/exchange/index.cfm?event=extensionDetail&loc=en_us&extid=1832523*/
-/***********************************************************************************/
-/**
- *  all group to ungroup v.1 - CS, CS2,CS3,CS4
- *
- *  Author: Nokcha (netbluew@gmail.com)
- *  
- *  This Script  is Can be easily  ungrouping to all group items in the Document.
- *
- *
- * JS code (c) copyright: Jiwoong Song ( netbluew@nate.com )
- * Copyright (c) 2009 netbluew@nate.com
- * All rights reserved.
- *
- * This code is derived from software contributed to or originating on wundes.com
- *
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *        This product includes software developed by netbluew@nate.com
- *        and its contributors.
- * 4. Neither the name of wundes.com nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY WUNDES.COM AND CONTRIBUTORS
- * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
- * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
 
-// The below commented script is likely (or not) a starting point for finding a way to parse a layer, ungroup all of its groups then move them on the root of the document as unique layers.
-// This would make using the export tool a breeze for people needing to export many items that are stuck in one single layer
-
-// var desc1 =
-//     "\nThis script will generate a separate raster image for every UNLOCKED layer in your file.\n\n"+
-//    "Locked images will be left as is, so if you want to hide a layer, lock it, and hide it in the Layers palate.\n\n"+
-//  "If you want a locked layer to be included in every layer export, just make sure it's visible when you run this script.";  
+var desc1 =
+    "\nThis script will generate a separate raster image for every UNLOCKED layer in your file.\n\n"+
+   "Locked images will be left as is, so if you want to hide a layer, lock it, and hide it in the Layers palate.\n\n"+
+ "If you want a locked layer to be included in every layer export, just make sure it's visible when you run this script.";  
  
-// var fname = app.activeDocument.name;
-// fname = fname.substr(0,fname.lastIndexOf("."));
+var fname = app.activeDocument.name;
+fname = fname.substr(0,fname.lastIndexOf("."));
 
-// var fileNameConst = fname;
-// var filename = fileNameConst;
-// var exampleSuffix = "01";
-// var savePrompt = "(You MUST enter a Save Location)";
-// var savePromptFlag = 0;
-// var WINDOW_title = "Raster Image Batch Exporter";
-// var ProcessTitle = "Process Files:";
-// var FileNameTitle = "Exported File Names:";
-// var FileTypeTitle = "Exported File Type:";
-// var SaveTitle = "Save Location:";
-// var AA_helpTip="Soften image edges?"; 
-// var CLIP_helpTip="Crops images to the current artBoard.";
-// var JPG_QUAL_helpTip="Higher Quality == Larger Filesize. Usually 80% is a good compromise.";
-// var TRANS_helpTip="Should the background be transparent?";
-// var PNG24_helpTip="256 Level Alpha Mask, non-lossy format";
-// var scale_helpTip="Adjust the scale of the output as a percentage. 100 is normal.";
-// var saveLocation = new Folder();
+var fileNameConst = fname;
+var filename = fileNameConst;
+var exampleSuffix = "01";
+var savePrompt = "(You MUST enter a Save Location)";
+var savePromptFlag = 0;
+var WINDOW_title = "Raster Image Batch Exporter";
+var ProcessTitle = "Process Files:";
+var FileNameTitle = "Exported File Names:";
+var FileTypeTitle = "Exported File Type:";
+var SaveTitle = "Save Location:";
+var AA_helpTip="Soften image edges?"; 
+var CLIP_helpTip="Crops images to the current artBoard.";
+var JPG_QUAL_helpTip="Higher Quality == Larger Filesize. Usually 80% is a good compromise.";
+var TRANS_helpTip="Should the background be transparent?";
+var PNG24_helpTip="256 Level Alpha Mask, non-lossy format";
+var scale_helpTip="Adjust the scale of the output as a percentage. 100 is normal.";
+var saveLocation = new Folder();
 
-// var filesBool = false;
-// var baseFilename = "";
-// var separator = "_";
-// var layerNameBool = true;
-// var exportFileType = "SVG";
-// var img_aa = true;
-// var img_clip=true;
-// var jpg_quality = 85;
-// var img_trans = true;
-// var img_scale = 100;
-// var save_location = "~";
-
-// /**************************/
-// /****** all group to ungroup vars ******/
-// /**************************/
-// var doc;
-// var itemKinds = new Array("pathItems","compoundPathItems","textFrames","placedItems","rasterItems","meshItems","pluginItems","graphItems","symbolItems","groupItems");
-// /********* end all group to ungroup vars ****/
-
-// /**************************/
-// /****** all group to ungroup functions ******/
-// /**************************/
-// function getChildAll(obj)
-// {
-//     var childsArr = new Array();
-//     //for(var i=0;i<obj.pageItems.length;i++)
-//     for(var i=0;i<(obj.pageItems.length + obj.pathItems.length);i++) {
-//         if(i < obj.pageItems.length)
-//             childsArr.push(obj.pageItems[i]);
-//         else if(i < obj.pathItems.length)
-//             childsArr.push(obj.pageItems[i]);
-//     }
-        
-//     return childsArr;
-// }
+var filesBool = false;
+var baseFilename = "";
+var separator = "_";
+var layerNameBool = true;
+var exportFileType = "SVG";
+var img_aa = true;
+var img_clip=true;
+var jpg_quality = 85;
+var img_trans = true;
+var img_scale = 100;
+var save_location = "~";
 
 
-// if(app.activeDocument)
-// {
-//     doc = app.activeDocument;
-//     //if(doc.groupItems.length)
-//     if(doc.groupItems.length || doc.layers.length) //add
-//         for(var i=0;i<doc.layers.length;i++)
-//             ungroup(doc.layers[i]);
-// }
 
-// function ungroup(obj)
-// {
-//     var elements = getChildAll(obj);
-//     if(elements.length<1){
-//         obj.remove();
-//         return;
-//     }else{
-//         for(var i=0;i<elements.length;i++) {
-//             try {
-//                 if(elements[i].parent.typename!="Layer")elements[i].moveBefore(obj);
-//                 if(elements[i].typename=="GroupItem")ungroup(elements[i]);
-//             }catch(e){
-
-//             }
-//         }
-//     }
-// }
-/********* end all group to ungroup functions ****/
 
 function BatchExportUI() 
 {
